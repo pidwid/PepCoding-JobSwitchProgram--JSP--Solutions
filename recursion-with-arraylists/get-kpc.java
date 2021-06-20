@@ -22,7 +22,7 @@ public class Main {
         String rstr = str.substring(1);
         ArrayList<String> rres = getKPC(rstr);
         ArrayList<String> mres = new ArrayList<>();
-        int x = Integer.parseInt(String.valueOf(fchar));
+        int x = Integer.parseInt(String.valueOf(fchar));    // [fchar - '0'] = 6
         String code = codes[x];
         for(int i = 0; i < code.length(); i++){
             for(String s: rres) mres.add(code.charAt(i) + s);
