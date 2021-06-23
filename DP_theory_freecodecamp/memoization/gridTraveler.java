@@ -10,12 +10,12 @@ package DP_theory_freecodecamp.memoization;
 import java.util.HashMap;
 import java.util.Map;
 
-public class gridTraveler {
+public class GridTraveler {
     public static void main(String[] args) {
-        System.out.println(gTraveler(18,18, new HashMap<String, Integer>())); // ans = 3 --> {rrd, drr, rdr}
+        System.out.println(gridTraveler(18,18, new HashMap<String, Integer>())); // ans = 3 --> {rrd, drr, rdr}
     }
 
-    public static int gTraveler(int row, int col, Map<String, Integer> memo){
+    public static int gridTraveler(int row, int col, Map<String, Integer> memo){
         if(row == 0 || col == 0) return 0;
         if(row == 1 && col == 1){
             return 1;
@@ -23,7 +23,7 @@ public class gridTraveler {
         String val = row + "," + col, rval = col + "," + row;
         if(memo.containsKey(val)) return memo.get(val);
         else if(memo.containsKey(rval)) return memo.get(rval);
-        memo.put(row+","+col, gTraveler(row - 1, col, memo) + gTraveler(row, col - 1, memo));
+        memo.put(row+","+col, gridTraveler(row - 1, col, memo) + gridTraveler(row, col - 1, memo));
         return memo.get(row+","+col);
     }
 
