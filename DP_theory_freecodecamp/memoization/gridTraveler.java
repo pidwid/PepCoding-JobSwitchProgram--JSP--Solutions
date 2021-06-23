@@ -1,13 +1,15 @@
 package DP_theory_freecodecamp.memoization;
 
+/**     
+     * you are a traveler on a 2d grid, 
+     * you can only travel to right or down
+     * begin from top-left and finish in bottom right
+     * return number of ways this can be achieved.
+    */
+
 import java.util.HashMap;
 import java.util.Map;
 
-/**  you are a traveler on a 2d grid, 
-        you can only travel to right or down
-        begin from top-left and finish in bottom right
-        return number of ways this can be achieved.
-       */
 public class gridTraveler {
     public static void main(String[] args) {
         System.out.println(gTraveler(18,18, new HashMap<String, Integer>())); // ans = 3 --> {rrd, drr, rdr}
@@ -24,4 +26,15 @@ public class gridTraveler {
         memo.put(row+","+col, gTraveler(row - 1, col, memo) + gTraveler(row, col - 1, memo));
         return memo.get(row+","+col);
     }
+
+    //no DP
+    /**
+        public static int gTraveler(int row, int col){
+        if(row == 0 || col == 0) return 0;
+        if(row == 1 && col == 1){
+            return 1;
+        }
+        return gTraveler(row - 1, col) + gTraveler(row, col - 1);
+    }
+     */
 }
