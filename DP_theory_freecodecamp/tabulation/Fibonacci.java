@@ -1,4 +1,4 @@
-package DP_theory_freecodecamp.memoization;
+package DP_theory_freecodecamp.tabulation;
 //normal 
 // n = 1,2,3,4,5,6,7
 // fib = 1,1,2,3,5,8,13,21,34
