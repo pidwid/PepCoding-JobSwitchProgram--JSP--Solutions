@@ -1,6 +1,14 @@
 package DP_theory_freecodecamp.memoization;
 
-import java.lang.annotation.Target;
+
+/** "DICISION PROBLEM"
+ *  https://www.youtube.com/watch?v=oBt53YbR9Kk
+ * -> write a func that takes targetSum and an array of numbers as argument,
+ * -> it should return true if the combination of elements that adds up to
+ * exactly the targetSum, else return false.
+ * Numbers in array can be used more than once
+ */
+
 import java.util.HashMap;
 import java.util.Map;
 
