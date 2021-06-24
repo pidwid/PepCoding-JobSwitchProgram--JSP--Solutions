@@ -3,22 +3,16 @@ package DP_theory_freecodecamp.memoization;
 
 /** "DICISION PROBLEM"
  *  https://www.youtube.com/watch?v=oBt53YbR9Kk
- * -> write a func that takes targetSum and an array of numbers as argument,
- * -> it should return true if the combination of elements that adds up to
- * exactly the targetSum, else return false.
- * Numbers in array can be used more than once
- */
-
-import java.util.HashMap;
-import java.util.Map;
-
-/**
  *  -> Write a func that takes in a targetSum val and an array of numbers as aguments,
  *  -> it should retuen a boolean stating wheather it is possible to create the targetSum
  *  using elements of the array.
  *  -> You cna use an elements of arrays as many times as needed.
  *  -> all input numbers are non-negative.
- */ 
+ */
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class CanSum {
 
     public static void main(String[] args) {
