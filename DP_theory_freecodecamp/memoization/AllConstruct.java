@@ -22,20 +22,58 @@ public class AllConstruct {
         System.out.println(allConstruct("skateboard", arr)); // false
         System.out.println(allConstruct("", arr1)); //true
         System.out.println(allConstruct("abcdef", arr2)); //true
-        System.out.println(allConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeef", arr3)); //false
+        System.out.println(allConstruct("eeeeeeeeeeeeeeeeeeeeeeeeeeef", arr3)); //false
 
     }
 
-    public static ArrayList<String> allConstruct(String target, String[] wordbank) {
-        if(target.length() == 0) return true;
+    public static ArrayList<ArrayList<String>> allConstruct(String target, String[] wordbank) {
+        if(target.length() == 0){
+            ArrayList<ArrayList<String>> ar =new ArrayList<>();
+            ar.add(new ArrayList<>());
+            return ar;
+        }
+        ArrayList<ArrayList<String>> res  = new ArrayList<>();
+        
         for(String s: wordbank){
             if(target.startsWith(s)){
                 String suffix = target.substring(s.length());
-                if(allConstruct(suffix, wordbank)) return true;
+                ArrayList<ArrayList<String>> suffixWays = allConstruct(suffix, wordbank);
+                if(suffixWays.size() > 0){
+                    for(ArrayList<String> targetWay: suffixWays){
+                        targetWay.add(0, s);
+                        res.add(targetWay);
+                    }
+                } 
             }
         }
-        return false;
+        return res;
 
     }
+
+    /** NO DP
+    public static ArrayList<ArrayList<String>> allConstruct(String target, String[] wordbank) {
+        if(target.length() == 0){
+            ArrayList<ArrayList<String>> ar =new ArrayList<>();
+            ar.add(new ArrayList<>());
+            return ar;
+        }
+        ArrayList<ArrayList<String>> res  = new ArrayList<>();
+        
+        for(String s: wordbank){
+            if(target.startsWith(s)){
+                String suffix = target.substring(s.length());
+                ArrayList<ArrayList<String>> suffixWays = allConstruct(suffix, wordbank);
+                if(suffixWays.size() > 0){
+                    for(ArrayList<String> targetWay: suffixWays){
+                        targetWay.add(0, s);
+                        res.add(targetWay);
+                    }
+                } 
+            }
+        }
+        return res;
+
+    }
+     */
     
 }
