@@ -11,8 +11,17 @@ package DP_theory_freecodecamp.tabulation;
 
 public class GridTraveler {
 
-    public static int gridTraveler(int row, int col){
-        return 0;
+    public static long gridTraveler(int row, int col){
+        long[][] mat = new long[row+1][col+1];
+        mat[1][1] = 1;
+        for(int i = 0; i <= row; i++){
+            for(int j = 0; j <= col; j++){
+                long current = mat[i][j];
+                if(i + 1 <= row) mat[i+1][j] += current;
+                if(j + 1 <= col)mat[i][j+1] += current;
+            } 
+        }
+        return mat[row][col];
     }
 
     public static void main(String[] args) {

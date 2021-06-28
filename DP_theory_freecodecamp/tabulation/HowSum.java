@@ -13,8 +13,21 @@ package DP_theory_freecodecamp.tabulation;
 public class HowSum {
 
     public static ArrayList<Integer> howSum(int targetSum, int[] numbers) {
-
-        return null;
+        ArrayList<Integer>[] narr = new ArrayList[targetSum + 1];
+        //int[][] res = new int[targetSum + 1][targetSum + 1];
+        for(int j = 0; j <= targetSum; j++) narr[j] = new ArrayList<>();
+        narr[0].add(0);
+        for(int i = 0; i <= targetSum; i++){
+            if(narr[i].size() != 0){
+                for(int el : numbers) {
+                    if(i + el <= targetSum) {
+                        for(Integer k : narr[i]) narr[i + el].add(k);
+                        narr[i + el].add(el);
+                    }
+                }
+            }
+        } 
+        return narr[targetSum];
     }
 
 

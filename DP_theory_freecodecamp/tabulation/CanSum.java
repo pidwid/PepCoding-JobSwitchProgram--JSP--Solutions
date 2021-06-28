@@ -1,5 +1,6 @@
 package DP_theory_freecodecamp.tabulation;
 
+import javax.swing.plaf.TreeUI;
 
 /** "DICISION PROBLEM"
  *  https://www.youtube.com/watch?v=oBt53YbR9Kk
@@ -14,8 +15,12 @@ package DP_theory_freecodecamp.tabulation;
 public class CanSum {
 
     public static boolean canSum(int targetSum, int[] arr){
-
-        return false;
+        boolean[] barr = new boolean[targetSum + 1];
+        barr[0] = true;
+        for(int i = 0; i <= targetSum; i++){
+            if(barr[i]) for(int el : arr) if(i + el <= targetSum) barr[i + el] = true;
+        }
+        return barr[targetSum];
     }
 
 
