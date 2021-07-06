@@ -1,6 +1,6 @@
 # PepCoding Job Switch Program JSP Solutions
 ## Solutions in Java.
-This has all the solutions for pepcoding's new job switch program (Pepcoding JSP). 
+My solutions for pepcoding's new job switch program questions (Pepcoding JSP). 
 
 (Online Java foundation course)
 ##### Data Structures and Algorithms in Java 
