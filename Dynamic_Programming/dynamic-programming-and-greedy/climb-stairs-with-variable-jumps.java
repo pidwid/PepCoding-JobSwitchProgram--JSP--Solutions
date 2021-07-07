@@ -8,28 +8,33 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         int[] arr = new int[n];
-        for(int i = 0; i < n; i++){
-            arr[i] = sc.nextInt();
-        }
-        System.out.println(variableClimb(n, arr));
-        
-        
+        for(int i = 0; i < n; i++) arr[i] = sc.nextInt();
+        System.out.println(getCount(0, arr, new int[n+1]));
+        // System.out.println(getCountTab(n, arr));
     }
     
-    public static int variableClimb(int n, int[] arr){
-        int[] res = new int[n + 1];
-        res[n] = 1;
-        for(int i = n-1; i >= 0; i--){
-            int count = 0;
-            for(int j = 1; j <= arr[i]; j++){
-                if(i + j <= n) count += res[i + j];
-            }
-            res[i] = count;
+    public static int getCount(int idx, int[] arr, int[] dp){
+        if(idx > arr.length) return 0;
+        if(idx == arr.length) return 1;
+        if(dp[idx] != 0) return dp[idx];
+        int res = 0;
+        for(int i = 1; i <= arr[idx]; i++){
+            res += getCount(idx + i, arr, dp);
         }
-        
-        
-        return res[0];
-        
+        dp[idx] = res;
+        return res;
     }
+    
+    // public static int getCountTab(int n, int[] arr){
+    //     int[] dp = new int[n+1];
+    //     dp[n] = 1;
+    //     for(int i = n-1; i >= 0; i--){
+    //         int jump = arr[i];
+    //         for(int j = 1; j <= jump; j++){
+    //             if(i + j <= n)dp[i] += dp[i + j];
+    //         }
+    //     }
+    //     return dp[0];
+    // }
 
 }
