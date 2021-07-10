@@ -19,17 +19,8 @@ public class Main {
             for(int i = 0; i < n; i++){
                 int curr = res[i][j] == 0 ? mat[i][j] : res[i][j];
                 res[i][j + 1] = Math.max(curr + mat[i][j + 1], res[i][j + 1]);
-                //System.out.println( i + "," + (j+1) +" -> " + res[i][j + 1]);
-                if(i != 0){
-                    res[i-1][j + 1] = Math.max(curr + mat[i-1][j + 1], res[i - 1][j + 1]);
-                   // System.out.println( (i-1) + "," + (j+1) +" -> "+ res[i-1][j+1]);
-                }
-                if(i != n-1){
-                    res[i+1][j + 1] = Math.max(curr + mat[i+1][j + 1], res[i + 1][j + 1]);
-                    //System.out.println( (i+1) + "," + (j+1) +" -> "+ res[i+1][j+1]);
-                }
-                
-                //System.out.println( "AFTER i->"+ i + " j->" + j + " $ " + res[i][j]);
+                if(i != 0) res[i-1][j + 1] = Math.max(curr + mat[i-1][j + 1], res[i - 1][j + 1]);
+                if(i != n-1) res[i+1][j + 1] = Math.max(curr + mat[i+1][j + 1], res[i + 1][j + 1]);
             }
             for(int o = 0, p = m-1; o < n; o++){
                 if(res[o][p] > max) max = res[o][p];
