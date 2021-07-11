@@ -1,4 +1,4 @@
-// Target Sum Subset
+//Target Sum Subsets 
 import java.io.*;
 import java.util.*;
 
@@ -7,31 +7,62 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        int[] arr = new int[n];
-        for(int i = 0; i < n; i++){
-            arr[i] = sc.nextInt();
-        }
+        int arr[] = new int[n];
+        for(int i = 0; i < n; i++) arr[i] = sc.nextInt();
         int tar = sc.nextInt();
         
-        boolean[][] dp = new boolean[n+1][tar+1];
+        // System.out.println(targetSum(arr, tar, 0));
+        Boolean[][] dp = new Boolean[n][tar+1];
+        //System.out.println(targetSumMemo(arr, tar, 0, dp));
+        System.out.println(targetSumTab(arr, tar));
+    }
+    
+    // Normal Recursion
+    public static boolean targetSum(int[] arr, int tar, int idx){
+        if(idx == arr.length) return tar == 0;
+               
+        // not taking current element
+        boolean f1 = targetSum(arr, tar, idx+1);
+        // taking current element, and passing updated target
+        boolean f2 = targetSum(arr, tar - arr[idx], idx+1);
         
-        for(int i = 0; i < n+1; i++){
-            for(int j = 0; j < tar+1; j++){
-                if(i == 0 && j == 0) dp[i][j] = true;
-                else if(i == 0) dp[i][j] = false;
-                else if(j == 0) dp[i][j] = true;
+        boolean ans = f1 || f2;
+        return ans;
+    }
+    
+    // Memoization
+    public static boolean targetSumMemo(int[] arr, int tar, int idx, Boolean[][] dp){
+         // for negative tar, tar == 0 will always be negative
+        if(idx == arr.length || tar < 0) return tar == 0;
+        
+        if(dp[idx][tar] != null) return dp[idx][tar];
+        // not taking current element
+        boolean f1 = targetSumMemo(arr, tar, idx+1, dp);
+        // taking current element, and passing updated target
+        boolean f2 = targetSumMemo(arr, tar - arr[idx], idx+1, dp);
+        boolean ans = f1 || f2;
+        dp[idx][tar] = ans;
+        return ans;
+    }
+    
+    // tabulation
+    public static boolean targetSumTab(int[] arr, int target){
+        boolean[][] dp = new boolean[arr.length + 1][target + 1];
+        for(int idx = 0; idx <= arr.length; idx++){
+            for(int tar = 0; tar <= target; tar++){
+                if(idx == 0 && tar == 0) dp[idx][tar] = true;
+                else if(idx == 0) dp[idx][tar] = false;
+                else if(tar == 0) dp[idx][tar] = true;
                 else{
-                    if(dp[i-1][j] == true) dp[i][j] = true;
-                    else {
-                        int val = arr[i-1];
-                        if(j >= val){
-                            if(dp[i-1][j-val] == true) dp[i][j] = true;
-                        }
+                    if(dp[idx - 1][tar]) dp[idx][tar] = true;
+                    else if(tar - arr[idx-1] >= 0 && dp[idx - 1][tar - arr[idx-1]]){
+                        dp[idx][tar] = true;
                     }
+                    else dp[idx][tar] = false; 
                 }
-                
             }
         }
-        System.out.print(dp[n][tar]);
+        return dp[arr.length][target];
     }
+    
 }
