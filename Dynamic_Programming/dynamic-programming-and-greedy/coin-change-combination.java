@@ -11,10 +11,12 @@ public class Main {
         for(int i = 0; i < n; i++) arr[i] = sc.nextInt();
         int amt = sc.nextInt();
         
-        System.out.print(coinChangeMemo(arr, amt, 0, new Integer[n + 1][amt+1]));
+        //System.out.print(coinChangeMemo(arr, amt, 0, new Integer[n + 1][amt+1]));
         //System.out.print(coinChangeTab(arr, amt));
+        System.out.print(coinChangeMemoAlternate(arr, amt, 0, new Integer[n + 1][amt+1]));
     } 
-
+    
+    
     public static int coinChangeMemo(int[] arr, int amt, int idx, Integer[][] dp){
         if(amt == 0) return 1;
         if(amt < 0 || idx == arr.length) return 0;
@@ -35,21 +37,17 @@ public class Main {
         }
         return dp[amt];
     }
-}
-
-/**
- *     // Not working
-    public static int coinChangeMemo(int[] arr, int amt, int idx, Integer[] dp){
+    
+    //My Solution
+    public static int coinChangeMemoAlternate(int[] arr, int amt, int idx, Integer[][] dp){
         if(amt == 0) return 1;
         if(amt < 0) return 0;
-        if(dp[amt] != null) return dp[amt];
+        if(dp[idx][amt] != null) return dp[idx][amt];
         int val = 0;
         for(int i = idx; i < arr.length; i++){
             val += coinChangeMemo(arr, amt - arr[i], i, dp);
         }
-        dp[amt] = val;
+        dp[idx][amt] = val;
         return val;
     }
- */
-
- 
+}
