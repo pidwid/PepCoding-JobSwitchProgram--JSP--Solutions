@@ -1,4 +1,4 @@
-// Add First In Linked List
+// Get Value In Linked List
 
 import java.io.*;
 import java.util.*;
@@ -56,47 +56,31 @@ public class Main {
       if (size == 0) {
         System.out.println("List is empty");
         return -1;
-      } else {
-        return head.data;
-      }
+      } else return head.data;
     }
 
     public int getLast() {
       if (size == 0) {
         System.out.println("List is empty");
         return -1;
-      } else {
-        return tail.data;
-      }
+      } else return tail.data;
     }
 
     public int getAt(int idx) {
+      int currIdx = 0;
+      Node currNode = head;
       if (size == 0) {
         System.out.println("List is empty");
         return -1;
-      } else if (idx < 0 || idx >= size) {
+      } else if (size > 0 && idx < size) {
+        while (currIdx != idx && currNode.next != null) {
+          currNode = currNode.next;
+          currIdx++;
+        }
+        return currNode.data;
+      } else {
         System.out.println("Invalid arguments");
         return -1;
-      } else {
-        Node temp = head;
-        for (int i = 0; i < idx; i++) {
-          temp = temp.next;
-        }
-        return temp.data;
-      }
-    }
-
-    public void addFirst(int val) {
-        Node newNode = new Node();
-        newNode.data = val;
-      if(size == 0){
-          head = newNode;
-          tail = newNode;
-          size++;
-      }else{
-          newNode.next = head;
-          head = newNode;
-          size++;
       }
     }
   }
@@ -132,9 +116,6 @@ public class Main {
         if (val != -1) {
           System.out.println(val);
         }
-      } else if (str.startsWith("addFirst")) {
-        int val = Integer.parseInt(str.split(" ")[1]);
-        list.addFirst(val);
       }
       str = br.readLine();
     }
