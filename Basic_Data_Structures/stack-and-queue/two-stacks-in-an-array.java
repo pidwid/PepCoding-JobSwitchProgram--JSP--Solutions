@@ -12,8 +12,8 @@ public class Main {
 
     public TwoStack(int cap) {
       data = new int[cap];
-      tos1 = -1;
-      tos2 = cap;
+      tos1 = -1; // outside the array
+      tos2 = cap; // outside the array
     }
 
     int size1() {
