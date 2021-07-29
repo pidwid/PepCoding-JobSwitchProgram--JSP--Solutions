@@ -1,4 +1,5 @@
-// Remove Last In Linked List
+// Remove At Index In Linked List
+
 
 import java.io.*;
 import java.util.*;
@@ -91,27 +92,27 @@ public class Main {
       temp.data = val;
       temp.next = head;
       head = temp;
-      
-      if(size == 0){
+
+      if (size == 0) {
         tail = temp;
       }
 
       size++;
     }
 
-    public void addAt(int idx, int val){
-      if(idx < 0 || idx > size){
+    public void addAt(int idx, int val) {
+      if (idx < 0 || idx > size) {
         System.out.println("Invalid arguments");
-      } else if(idx == 0){
+      } else if (idx == 0) {
         addFirst(val);
-      } else if(idx == size){
+      } else if (idx == size) {
         addLast(val);
       } else {
         Node node = new Node();
         node.data = val;
 
         Node temp = head;
-        for(int i = 0; i < idx - 1; i++){
+        for (int i = 0; i < idx - 1; i++) {
           temp = temp.next;
         }
         node.next = temp.next;
@@ -121,18 +122,40 @@ public class Main {
       }
     }
 
-    public void removeLast(){
-      if(size == 1){
-          head = null;
-          tail = null;
-          size--;
-      }else if(size == 0) System.out.println("List is empty");
-      else{
-          Node currNode = head;
-          while(currNode.next != tail) currNode = currNode.next;
-          tail = currNode;
-          tail.next = null;
-          size--;
+    public void removeLast() {
+      if (size == 0) {
+        System.out.println("List is empty");
+      } else if (size == 1) {
+        head = tail = null;
+        size = 0;
+      } else {
+        Node temp = head;
+        for (int i = 0; i < size - 2; i++) {
+          temp = temp.next;
+        }
+
+        tail = temp;
+        tail.next = null;
+        size--;
+      }
+    }
+
+    public void removeAt(int idx) {
+      if (idx < 0 || idx >= size) {
+        System.out.println("Invalid arguments");
+      } else if (idx == 0) {
+        removeFirst();
+      } else if (idx == size - 1) {
+        removeLast();
+      } else {
+        Node currNode = head;
+        for (int i = 0; i < idx - 1; i++) {
+          currNode = currNode.next;
+        }
+        Node temp = currNode.next.next;
+        currNode.next.next = null;
+        currNode.next = temp;
+        size--;
       }
     }
   }
@@ -177,7 +200,10 @@ public class Main {
         list.addAt(idx, val);
       } else if (str.startsWith("removeLast")) {
         list.removeLast();
-      } 
+      } else if (str.startsWith("removeAt")) {
+        int idx = Integer.parseInt(str.split(" ")[1]);
+        list.removeAt(idx);
+      }
       str = br.readLine();
     }
   }
