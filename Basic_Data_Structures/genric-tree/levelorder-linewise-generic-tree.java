@@ -108,6 +108,65 @@ public class Main {
         }
   }
 
+  public static void levelOrderLinewise2(Node node){
+    Queue<Node> q = new ArrayDeque<>();
+    q.add(node);
+    Node n = new Node();
+    n.data = -1;
+    q.add(n);
+    while(q.size() > 0){
+        node = q.remove();
+        if(node.data != -1){
+          System.out.print(node.data + " ");
+          for(Node child: node.children) q.add(child);
+        }else{
+          if(q.size() > 0) {
+            q.add(n);
+            System.out.println();
+          }
+        }
+    }
+}
+
+public static void levelOrderLinewise3(Node node){
+  Queue<Node> q = new ArrayDeque<>();
+  q.add(node);
+  while(q.size() > 0){
+      int cici = q.size(); // count of children
+      for(int i = 0; i < cici; i++){
+        node = q.remove();
+        System.out.print(node.data + " ");
+        for(Node child: node.children) q.add(child);
+      }
+        System.out.println();
+  }
+}
+
+private static class Pair{
+  Node node;
+  int level;
+
+  Pair(Node node, int level){
+    this.node = node;
+    this.level = level;
+  }
+}
+
+public static void levelOrderLinewise4(Node node){
+  Queue<Pair> q = new ArrayDeque<>();
+  q.add(new Pair(node, 0));
+  int level = 0;
+  while(q.size() > 0){
+    Pair p = q.remove();
+    if(p.level > level){
+      level = p.level;
+      System.out.println();
+    }
+    System.out.print(node.data + " ");
+    for(Node child: node.children) q.add(new Pair(child, p.level + 1));
+  }
+}
+
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     int n = Integer.parseInt(br.readLine());
