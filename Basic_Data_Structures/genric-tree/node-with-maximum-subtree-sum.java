@@ -1,4 +1,4 @@
-// Predecessor And Successor Of An Element
+// Node With Maximum Subtree Sum
 
 import java.io.*;
 import java.util.*;
@@ -45,22 +45,20 @@ public class Main {
 
     return root;
   }
-    
-  static Node predecessor;
-  static Node successor;
-  static int state = 0;
-  public static void predecessorAndSuccessor(Node node, int data) {
-      // travel and change strategy
-      if(state == 0){
-        if(node.data != data) predecessor = node;
-        else state++;
-      }else if(state == 1){
-          successor = node;
-          state++;
+  
+  static Node ans;
+  static int max;
+  public static int sum(Node node){
+      int sum = node.data;
+      for(Node child: node.children){
+          sum += sum(child);
       }
-    for(Node child: node.children){
-        predecessorAndSuccessor(child, data);
-    }
+      if(sum > max){
+          max = sum;
+          ans = node;
+      }
+      
+      return sum;
   }
 
   public static void main(String[] args) throws Exception {
@@ -72,23 +70,9 @@ public class Main {
       arr[i] = Integer.parseInt(values[i]);
     }
 
-    int data = Integer.parseInt(br.readLine());
-
     Node root = construct(arr);
-    predecessor = null;
-    successor = null;
-    predecessorAndSuccessor(root, data);
-    if(predecessor == null){
-      System.out.println("Predecessor = Not found");
-    } else {
-      System.out.println("Predecessor = " + predecessor.data);
-    }
-
-    if(successor == null){
-      System.out.println("Successor = Not found");
-    } else {
-      System.out.println("Successor = " + successor.data);
-    }
+    sum(root);
+    System.out.print(ans.data + "@" + max);
   }
 
 }
