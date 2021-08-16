@@ -57,8 +57,34 @@ public class Main {
           max = sum;
           ans = node;
       }
-      
+    System.out.print(ans.data + "@" + max);
       return sum;
+  }
+  
+  public static class Pair{
+      int sum;
+      Node node;
+      int maxSubTreeSum;
+  } 
+  
+  public static Pair sumSubtree(Node node){
+      Pair mp = new Pair();
+      mp.sum = node.data;
+      for(Node child: node.children){
+          Pair cp = sumSubtree(child);
+          mp.sum += cp.sum;
+          if(cp.maxSubTreeSum > mp.maxSubTreeSum){
+              mp.maxSubTreeSum = cp.maxSubTreeSum;
+              mp.node = cp.node;
+          }
+      }
+      if(mp.sum > mp.maxSubTreeSum){
+          mp.maxSubTreeSum = mp.sum;
+          mp.node = node;
+      }
+      
+      return mp;
+      
   }
 
   public static void main(String[] args) throws Exception {
@@ -71,8 +97,9 @@ public class Main {
     }
 
     Node root = construct(arr);
-    sum(root);
-    System.out.print(ans.data + "@" + max);
+    // sum(root);
+    Pair rp = sumSubtree(root);
+    System.out.println(rp.node.data + "@" + rp.maxSubTreeSum);
   }
 
 }
