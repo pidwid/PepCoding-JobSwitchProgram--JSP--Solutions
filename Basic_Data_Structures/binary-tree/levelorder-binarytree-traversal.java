@@ -80,7 +80,7 @@ public class Main {
     display(node.left);
     display(node.right);
   }
-
+        
   public static void levelOrder(Node node) {
     Queue<Node> q = new ArrayDeque<>();
     q.add(node);
@@ -98,6 +98,23 @@ public class Main {
     }
     
   }
+  
+   public static void levelOrderLoop(Node node) {
+    Queue<Node> q = new ArrayDeque<>();
+    q.add(node);
+    while(q.size() > 0){
+        int sz = q.size();
+        for(int i = 0; i < sz; i++){
+            Node x = q.remove();
+            System.out.print(x.data + " ");
+            if(x.left != null) q.add(x.left);
+            if(x.right != null) q.add(x.right);
+        }
+        System.out.println();
+    }
+    
+  }
+
 
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -113,7 +130,7 @@ public class Main {
     }
 
     Node root = construct(arr);
-    levelOrder(root);
+    levelOrderLoop(root);
   }
 
 }
