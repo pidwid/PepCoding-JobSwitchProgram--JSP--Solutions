@@ -97,6 +97,15 @@ public class Main {
       }
       tsp(node.right, data, root);
   }
+  
+    public static void tsp2(Node node, ArrayList<Integer> al){
+      if(node == null) return;
+      tsp2(node.left, al);
+      al.add(node.data);
+      tsp2(node.right, al);
+  }
+  
+  
 
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -114,8 +123,21 @@ public class Main {
     int data = Integer.parseInt(br.readLine());
 
     Node root = construct(arr);
-    // write your code here
-    tsp(root, data, root);
+    // tsp(root, data, root);
+    ArrayList<Integer> res = new ArrayList<Integer>();
+    tsp2(root, res);
+    int i = 0, r = res.size() - 1;
+    while(i < r){
+        if((res.get(i) + res.get(r)) == data){
+            System.out.println(res.get(i) + " " + res.get(r));
+            i++;
+            r--;
+        }else if((res.get(i) + res.get(r)) < data){
+            i++;
+        }else{
+            r--;
+        }
+    }
   }
 
 }
